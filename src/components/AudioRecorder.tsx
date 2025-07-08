@@ -11,10 +11,10 @@ interface AudioRecorderProps {
 
 const HF_WHISPER_URL = "https://api-inference.huggingface.co/models/openai/whisper-large-v3";
 const HF_TRANSLATE_URL = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-mul-en";
-const HF_API_KEY = process.env.NEXT_PUBLIC_HF_API_KEY;
+const HF_API_KEY = process.env.REACT_APP_HF_API_KEY;
 console.log("HF_API_KEY:", HF_API_KEY);
 if (!HF_API_KEY) {
-  throw new Error("Hugging Face API key is missing. Please set NEXT_PUBLIC_HF_API_KEY in your environment variables.");
+  throw new Error("Hugging Face API key is missing. Please set REACT_APP_HF_API_KEY in your environment variables.");
 }
 const AudioRecorder: React.FC<AudioRecorderProps> = ({
   isRecording,
