@@ -11,8 +11,9 @@ interface AudioRecorderProps {
 
 const HF_WHISPER_URL = "https://api-inference.huggingface.co/models/openai/whisper-large-v3";
 const HF_TRANSLATE_URL = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-mul-en";
+// Correct way to access the Hugging Face API key in Create React App (works on Vercel)
 const HF_API_KEY = process.env.REACT_APP_HF_API_KEY;
-console.log("HF_API_KEY:", HF_API_KEY);
+console.log("HF_API_KEY:", HF_API_KEY); // Remove this after confirming the key is loaded in production
 if (!HF_API_KEY) {
   throw new Error("Hugging Face API key is missing. Please set REACT_APP_HF_API_KEY in your environment variables.");
 }
