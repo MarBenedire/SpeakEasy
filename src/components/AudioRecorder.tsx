@@ -11,6 +11,7 @@ interface AudioRecorderProps {
 
 const HF_WHISPER_URL = "https://api-inference.huggingface.co/models/openai/whisper-large-v3";
 const HF_TRANSLATE_URL = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-mul-en";
+const HF_API_KEY = process.env.NEXT_PUBLIC_HF_API_KEY; // TODO: Replace with your actual Hugging Face API key
 
 const AudioRecorder: React.FC<AudioRecorderProps> = ({
   isRecording,
@@ -51,6 +52,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
           formData.append("file", audioBlob, "audio.webm");
           const resp = await fetch(HF_WHISPER_URL, {
             method: "POST",
+            headers: { "Authorization": `Bearer ${HF_API_KEY}` },
             body: formData,
           });
           if (!resp.ok) throw new Error("Transcription failed");
@@ -63,7 +65,10 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
           if (lang !== "en" && text) {
             const translateResp = await fetch(HF_TRANSLATE_URL, {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${HF_API_KEY}`
+              },
               body: JSON.stringify({ inputs: text }),
             });
             if (translateResp.ok) {
